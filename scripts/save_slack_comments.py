@@ -1,3 +1,4 @@
+import argparse
 import datetime
 import os
 import time
@@ -100,7 +101,11 @@ def count_reactions(row):
 
 
 if __name__ == "__main__":
-    channels = get_channels(q="times")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("q", help="query")
+    args = parser.parse_args()
+
+    channels = get_channels(q=args.q)
     print("get {} times channes".format(len(channels)))
 
     channels.to_csv("data/times_channels.csv")
