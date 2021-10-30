@@ -1,5 +1,8 @@
 .env
 .venv
 .vscode
-data/*.txt
-data/*.csv
+
+app/data/*.txt
+app/data/*.csv
+
+__pycache__

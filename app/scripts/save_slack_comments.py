@@ -2,11 +2,9 @@ import argparse
 import datetime
 import os
 import time
-from dotenv import load_dotenv
 import pandas as pd
 from slack_sdk import WebClient
 
-load_dotenv()
 
 client = WebClient(token=os.environ["SLACK_BOT_TOKEN"])
 
