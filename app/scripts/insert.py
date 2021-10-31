@@ -3,7 +3,8 @@ import os
 import sys
 
 sys.path.append(os.path.abspath("."))
-import db
+from db import Database
+from message import Message
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -12,10 +13,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
     user_id = args.user_id
 
+    Database.initialise()
+    message = Message()
     with open("data/{}_output.txt".format(user_id)) as f:
         list = []
         for line in f:
             t = (line,)
             list.append(t)
 
-        db.add_messages(list)
+        message.adds(list)
