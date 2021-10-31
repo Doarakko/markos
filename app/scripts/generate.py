@@ -5,8 +5,8 @@ import markovify
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("user_id", help="slack user id")
-    parser.add_argument("-n", help="count of generate sentences", default=10)
-    parser.add_argument("-s", help="state size", default=2)
+    parser.add_argument("-n", help="count of generate sentences", default=10, type=int)
+    parser.add_argument("-s", help="state size", default=2, type=int)
 
     args = parser.parse_args()
     user_id = args.user_id
