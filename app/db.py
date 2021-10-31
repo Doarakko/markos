@@ -2,11 +2,6 @@ import os
 from psycopg2 import pool
 
 
-connection_pool = pool.SimpleConnectionPool(
-    dsn=os.environ["DATABASE_URL"], minconn=2, maxconn=10
-)
-
-
 class Database:
     __connection_pool = None
 
