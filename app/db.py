@@ -1,6 +1,6 @@
 import os
 import psycopg2
-from psycopg2.extras import DictCursor
+from psycopg2 import extras
 
 
 def init():
@@ -37,7 +37,7 @@ def _create_tables():
 def get_message_by_random():
     try:
         with _get_connection() as conn:
-            with conn.cursor(cursor_factory=DictCursor) as cur:
+            with conn.cursor(cursor_factory=extras.DictCursor) as cur:
                 cur.execute(
                     "SELECT body FROM messages ORDER BY RANDOM() limit 1",
                 )
@@ -47,20 +47,19 @@ def get_message_by_random():
         raise
 
 
-def _add_message(body):
+def add_messages(list):
     try:
         with _get_connection() as conn:
             with conn.cursor() as cur:
-                cur.execute(
-                    "INSERT INTO messages (body) VALUES (%s)",
-                    (body,),
+                extras.execute_values(
+                    cur, "INSERT INTO messages (body) VALUES %s", list
                 )
             conn.commit()
     except Exception as e:
         raise
 
 
-def _delete_all_messages():
+def delete_all_messages():
     try:
         with _get_connection() as conn:
             with conn.cursor() as cur:

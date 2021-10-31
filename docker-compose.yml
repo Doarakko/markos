@@ -12,6 +12,7 @@ services:
       - postgres
     volumes:
       - ./app:/app
+    tty: true
     command: python bot.py
   postgres:
     image: postgres:13.4
