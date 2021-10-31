@@ -1,0 +1,41 @@
+{
+    "name": "markos",
+    "description": "Create and run Slack bot using comments and markov chain",
+    "repository": "https://github.com/Doarakko/markos",
+    "keywords": [
+        "bot",
+        "slack bot",
+        "markov chain"
+    ],
+    "env": {
+        "APP_BASE": {
+            "description": "Do not change this value.",
+            "value": "app"
+        },
+        "SLACK_APP_TOKEN": {
+            "description": "Enter your slack app token.",
+            "value": "xapp-aaaa"
+        },
+        "SLACK_BOT_TOKEN": {
+            "description": "Enter your slack bot token.",
+            "value": "xapp-bbbb"
+        }
+    },
+    "buildpacks": [
+        {
+            "url": "https://github.com/lstoll/heroku-buildpack-monorepo"
+        },
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-python"
+        }
+    ],
+    "addons": [
+        "heroku-postgresql"
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
+    }
+}
