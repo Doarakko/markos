@@ -56,8 +56,7 @@ if __name__ == "__main__":
     comments = pd.read_csv(input_path)
 
     comments = comments[
-        (comments["subtype"].isnull())
-        & (comments["body"].str.contains("<@.*>") == False)
+        (comments["body"].str.contains("<@.*>") == False)
         & (comments["body"].str.contains("```") == False)
         & (comments["body"].str.contains("<#.*>") == False)
         & (comments["body"].str.contains("<!subteam.*>") == False)
