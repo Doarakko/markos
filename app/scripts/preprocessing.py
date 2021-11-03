@@ -8,22 +8,12 @@ import swifter
 nlp = spacy.load("ja_ginza")
 
 code_regex = re.compile(
-    "[!\"#$%&'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・•（）＄＃＠。、？！｀＋￥％…←↑→↓]"
+    "[!\"#$%&'\\\\()*+,-./:;<=＝>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・•（）＄＃＠。、？！｀＋￥％…←↑→↓]"
 )
 
 
 def preprocessing(row):
     row["body"] = re.sub(":.+:", "", row["body"])
-
-    if row["body"].startswith("p "):
-        row["body"] = row["body"].replace("p ", "", 1)
-
-    if row["body"].startswith("s "):
-        row["body"] = row["body"].replace("s ", "", 1)
-
-    # delete the thread number like ">>14"
-    row["body"] = re.sub(r"(>{2}\d+)", "", row["body"])
-
     row["body"] = code_regex.sub("", row["body"])
 
     doc = nlp(row["body"])
@@ -62,21 +52,7 @@ if __name__ == "__main__":
         & (comments["body"].str.contains("<!subteam.*>") == False)
         & (comments["body"].str.contains("http") == False)
         & (comments["body"].str.contains("`.+`") == False)
-        & (comments["body"].str.contains("m\(_ _\)m") == False)
-        & (comments["body"].str.contains("ありがとう") == False)
-        & (comments["body"].str.contains("おめでとう") == False)
-        & (comments["body"].str.contains("お疲れ") == False)
-        & (comments["body"].str.contains("botman") == False)
-        & (comments["body"].str.contains("起票") == False)
-        & (comments["body"].str.startswith("&gt;") == False)
-        & (comments["body"].str.startswith("did") == False)
-        & (comments["body"].str.startswith("todo") == False)
-        & (comments["body"].str.startswith(" todo") == False)
-        & (comments["body"].str.startswith("TODO") == False)
-        & (comments["body"].str.startswith("done") == False)
-        & (comments["body"].str.startswith("memo") == False)
-        & (comments["body"].str.startswith("doing") == False)
-        & (comments["body"].str.startswith("do ne") == False)
+        & (comments["body"].str.contains("&gt;") == False)
     ]
 
     comments = comments.swifter.apply(lambda x: preprocessing(x), axis=1)
