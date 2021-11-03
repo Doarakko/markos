@@ -8,19 +8,23 @@ import swifter
 nlp = spacy.load("ja_ginza")
 
 code_regex = re.compile(
-    "[!\"#$%&'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・（）＄＃＠。、？！｀＋￥％…←↑→↓]"
+    "[!\"#$%&'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・•（）＄＃＠。、？！｀＋￥％…←↑→↓]"
 )
 
 
 def preprocessing(row):
     row["body"] = re.sub(":.+:", "", row["body"])
-    row["body"] = code_regex.sub("", row["body"])
 
     if row["body"].startswith("p "):
         row["body"] = row["body"].replace("p ", "", 1)
 
     if row["body"].startswith("s "):
         row["body"] = row["body"].replace("s ", "", 1)
+
+    # delete the thread number like ">>14"
+    row["body"] = re.sub(r"(>{2}\d+)", "", row["body"])
+
+    row["body"] = code_regex.sub("", row["body"])
 
     doc = nlp(row["body"])
     l = []
@@ -40,16 +44,19 @@ def preprocessing(row):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("user_id", help="slack user id")
+    parser.add_argument("-i", help="input file path", default="data/comments.csv")
+    parser.add_argument(
+        "-o", help="output file path", default="data/preprocessing_comments.csv"
+    )
 
     args = parser.parse_args()
-    user_id = args.user_id
+    input_path = args.i
+    output_path = args.o
 
-    comments = pd.read_csv("data/comments.csv")
+    comments = pd.read_csv(input_path)
 
     comments = comments[
         (comments["subtype"].isnull())
-        & (comments["user"] == user_id)
         & (comments["body"].str.contains("<@.*>") == False)
         & (comments["body"].str.contains("```") == False)
         & (comments["body"].str.contains("<#.*>") == False)
@@ -74,4 +81,5 @@ if __name__ == "__main__":
     ]
 
     comments = comments.swifter.apply(lambda x: preprocessing(x), axis=1)
-    comments.to_csv("data/{}_comments.csv".format(user_id))
+    comments.to_csv(output_path)
+    print("save to {}".format(output_path))
