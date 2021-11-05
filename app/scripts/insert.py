@@ -8,14 +8,14 @@ from message import Message
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("user_id", help="slack user id")
+    parser.add_argument("-i", help="input file path", default="data/output.txt")
 
     args = parser.parse_args()
-    user_id = args.user_id
+    input_path = args.i
 
     Database.initialise()
     message = Message()
-    with open("data/{}_output.txt".format(user_id)) as f:
+    with open(input_path) as f:
         list = []
         for line in f:
             t = (line,)
