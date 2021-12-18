@@ -60,7 +60,7 @@ Choose a user to create a bot.
 User id is like `U0123abcd`.
 
 ```sh
-docker exec -it app python scripts/2_select_slack_user.py -u <user id>
+docker exec -it app python scripts/2_select_slack_user.py <user id>
 ```
 
 If you use the CSV file you have already prepared, skip it.
