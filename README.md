@@ -31,7 +31,7 @@ cp .env.example .env
 
 ### 2. Create Slack app
 
-Easy to create using `manifest.json`.
+Easy to create using `manifest.yml`.
 
 Get App-Level Token(`xapp-aaaa`) and Bot User OAuth Token(`xoxb-bbbb`).
 
