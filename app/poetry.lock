@@ -2168,13 +2168,12 @@ sortedcontainers = ">=2.1.0,<2.2.0"
 
 [[package]]
 name = "swifter"
-version = "1.0.9"
+version = "1.3.5"
 description = "A package which efficiently applies any function to a pandas dataframe or series in the fastest available manner"
 optional = false
 python-versions = "*"
 files = [
-    {file = "swifter-1.0.9-py3-none-any.whl", hash = "sha256:3b9f1e06de0ef3bea328c52ca0372fd528402ca997b1d7d4cbbefb3974d58a8a"},
-    {file = "swifter-1.0.9.tar.gz", hash = "sha256:14cec10ff1ecdfbcfdd68985366b07add5f9b7bb77116720f47c88f29f048c3e"},
+    {file = "swifter-1.3.5.tar.gz", hash = "sha256:9c1af804e2a72f66b4523aabe988a7f4f35c8c3aab2d665bf255da57b192bf1d"},
 ]
 
 [package.dependencies]
@@ -2188,8 +2187,7 @@ psutil = ">=5.6.6"
 tqdm = ">=4.33.0"
 
 [package.extras]
-modin-dask = ["modin[dask] (>=0.8.1.1)"]
-modin-ray = ["modin[ray] (>=0.8.1.1)"]
+groupby = ["ray (>=1.0.0)"]
 
 [[package]]
 name = "terminado"
@@ -2588,4 +2586,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "b987f2730d543caa71f1c4772650ad37bc4233954dbd527685990ee94804917e"
+content-hash = "bed8365f7525177119219591a927c753e5fc893f918daa564391e31121894251"
