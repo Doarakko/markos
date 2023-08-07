@@ -6,7 +6,7 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-psycopg2 = "^2.9.1"
+psycopg2 = "^2.9.7"
 slack-bolt = "^1.9.3"
 
 [tool.poetry.dev-dependencies]
